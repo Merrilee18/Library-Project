@@ -27,7 +27,6 @@ function getBooksBorrowedCount(books) {
         acc++;
       }
     }, 0);
-    //console.log(acc);
     return acc;
   }, 0);
 }
@@ -73,28 +72,39 @@ function getMostPopularBooks(books) {
 }
 
 // FINISHED
+// function getFirstAndLast(authors) {
+//   console.log("authors", authors);
+//   const nameObject = authors.find((author) => book.authorId === author.id).name;
+//   return `${nameObject.first} ${nameObject.last}`;
 
-  function getMostPopularAuthors(books, authors) {
-    return books.reduce((mostPopularAuthors, book) => {   
-          
+
+function getMostPopularAuthors(books, authors) {
+  return books
+    .reduce((mostPopularAuthors, book) => {
+
+      //helper function
       function getFirstAndLast() {
-          const nameObject = authors.find(author => book.authorId === author.id).name
+          const nameObject = authors.find(author => book.authorId === author.id).name;
           return `${nameObject.first} ${nameObject.last}`
-        }
-      
-      const authorExists = mostPopularAuthors.find((popAuthor) => popAuthor.name === getFirstAndLast())
-      
+      }
+
+      const authorExists = mostPopularAuthors.find(
+        (popAuthor) => popAuthor.name === getFirstAndLast()
+      );
+
       if (authorExists) {
         authorExists.count += book.borrows.length;
-      } else {     
+      } else {
         mostPopularAuthors.push({
           name: getFirstAndLast(),
-          count: book.borrows.length
-        })
+          count: book.borrows.length,
+        });
       }
-      return mostPopularAuthors
-    }, []).sort((a, b) => b.count - a.count).splice(0, 5)
-  }
+      return mostPopularAuthors;
+    }, [])
+    .sort((a, b) => b.count - a.count)
+    .splice(0, 5);
+}
 
 module.exports = {
   getTotalBooksCount,
@@ -104,4 +114,3 @@ module.exports = {
   getMostPopularBooks,
   getMostPopularAuthors,
 };
-

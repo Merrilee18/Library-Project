@@ -28,32 +28,30 @@ function getTotalNumberOfBorrows(account, books) {
         if(borrowedbook.id === account.id) {
           acc++;
         }}, 0)  
-        //console.log(acc);
         return acc;
       }, 0) 
     }
 
 
 //FINISHED
-//create an array of all the books currently checkout out by 
-//the account.
-//look in the books -> borrows -> loop through ID
-//if match, push books[i]
-//match author id w/ author
-//push author
-function getBooksPossessedByAccount(account, books, authors) {
-  return books.reduce((acc, book) => {
-     book.borrows.forEach(borrowedBook => {
-      if(borrowedBook.id === account.id
-        && borrowedBook.returned === false) {
-          book.author = authors.find(author => 
-            author.id === book.authorId)
-          acc.push(book);
-        //console.log(acc);
-        }
-      })
-      return acc;
-  }, [])
+//added spread operator
+
+const getBooksPossessedByAccount = (account, books, authors) => {
+  let result = [];
+  books.forEach((book) => {
+    if (book.borrows.some(borrow => borrow.id === account.id && 
+        !borrow.returned)) {
+          result.push({
+            id : book.id, 
+            title: book.title, 
+            genre: book.genre, 
+            authorId: book.authorId, 
+            author: authors.find((author) => author.id === book.authorId),
+            borrows: [...book.borrows]
+          });
+      }
+  });
+  return result;
 }
 
 

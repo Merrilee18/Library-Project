@@ -1,5 +1,6 @@
 // Note: Please do not change the name of the functions. The tests use those names to validate your code.
 
+
 //FINISHED
 //loop through the authors and find the author
 function findAuthorById(authors, id) {
@@ -19,7 +20,7 @@ function findBookById(books, id) {
   }
 }
 
-//UNFINISHED
+//FINISHED
 //returns two arrays(loanedOut, available) within an array (allBooks)
 //one array is "loaned out", second is "available"
 // look through the books.borrows and determine which books include
@@ -30,24 +31,20 @@ function partitionBooksByBorrowedStatus(books) {
   const available = [];
 
   books.forEach((book) => {
-      for(let i = 0; i < book.borrows[1]; i++)
-      console.log(book.borrows[i])
+
     if (book.borrows[0].returned === false) {
       loanedOut.push(book);
-
     } else {
       available.push(book);
-
     }
- 
   });
   return [loanedOut, available];
-  }
-
+}
 
 //FINISHED
 //return an array of all the borrowers of one book
 //include user ID and status = returned: true/false
+
 function getBorrowersForBook(book, accounts) {
   const combinedBorrowers = book.borrows.map((borrower) => {
     const account = accounts.find((account) => {
@@ -58,23 +55,6 @@ function getBorrowersForBook(book, accounts) {
   });
   return combinedBorrowers.splice(0, 10);
 }
-
-//NASH
-//   let temp = book.borrows.filter((item, index) => {
-//     let targetId = item.id;
-//     let result = item;
-//     accounts.forEach(borrowedBook => {
-//       if(borrowedBook.id === targetId) {
-//         result = true;
-//       }
-//     })
-//        return result;
-//     }, [])
-//     console.log("temp", temp);
-//   let answers = temp.splice(0, 10)
-//   console.log("answers", answers);
-//   return answers;
-// }
 
 module.exports = {
   findAuthorById,
